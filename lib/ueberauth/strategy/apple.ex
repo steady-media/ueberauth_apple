@@ -37,12 +37,13 @@ defmodule Ueberauth.Strategy.Apple do
 
     case Ueberauth.Strategy.Apple.OAuth.get_access_token([code: code], opts) do
       {:ok, token} ->
-        %{"email" => user_email, "sub" => user_uid} = UeberauthApple.fields_from_id_token(token.other_params["id_token"])
+        user_fields = UeberauthApple.fields_from_id_token(token.other_params["id_token"])
 
         apple_user =
           user
-          |> Map.put("uid", user_uid)
-          |> Map.put("email", user_email)
+          |> Map.put("uid", user_fields["sub"])
+          |> Map.put("email", user_fields["email"])
+          |> Map.put("name", user_fields["name"])
 
         conn
         |> put_private(:apple_token, token)

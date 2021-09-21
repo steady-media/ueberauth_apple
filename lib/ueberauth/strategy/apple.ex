@@ -25,7 +25,11 @@ defmodule Ueberauth.Strategy.Apple do
       |> with_param(:state, conn)
 
     opts = oauth_client_options_from_conn(conn)
-    redirect!(conn, Ueberauth.Strategy.Apple.OAuth.authorize_url!(params, opts))
+    url =
+      Ueberauth.Strategy.Apple.OAuth.authorize_url!(params, opts)
+      |> String.replace("+", "%20")
+
+    redirect!(conn, url)
   end
 
   @doc """

@@ -47,7 +47,6 @@ defmodule Ueberauth.Strategy.Apple do
           user
           |> Map.put("uid", user_fields["sub"])
           |> Map.put("email", user_fields["email"])
-          |> Map.put("name", user_fields["name"])
 
         conn
         |> put_private(:apple_token, token)

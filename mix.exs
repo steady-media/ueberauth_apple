@@ -22,7 +22,7 @@ defmodule UeberauthApple.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :oauth2, :ueberauth]]
+    [applications: [:logger, :oauth2, :ueberauth, :jose]]
   end
 
   defp deps do
